@@ -1,0 +1,1438 @@
+# الفصل الرابع عشر
+
+# HTML Best Practices
+
+يشمل حاليًا:
+
+- عدم استخدام `<div>` كزر
+- عدم وضع `<button>` داخل `<button>`
+- عدم تكرار `id`
+- استخدام Heading Hierarchy صحيحة
+- استخدام `<label>` مع عناصر الإدخال
+
+## Use Semantic Elements Instead of `<div>`
+
+### السؤال
+
+## Why shouldn't you use `<div>` as a button?
+
+❌ مثال سيئ:
+
+```
+<divonclick="submitForm()">
+    Submit</div>
+```
+
+حتى لو جعلناه يبدو كزر باستخدام CSS، فهو ليس Button حقيقيًا.
+
+الأفضل:
+
+```
+<buttontype="submit">
+    Submit</button>
+```
+
+### لماذا؟
+
+لأن `<button>` يوفر بشكل Native:
+
+- Keyboard interaction
+- Focus behavior
+- Accessibility semantics
+- Button behavior
+- Integration with forms
+
+بينما `<div>` مجرد Generic Container.
+
+---
+
+### قاعدة مهمة
+
+إذا كان العنصر يقوم بـ **Action**:
+
+```
+Click → Perform Action
+```
+
+استخدمي:
+
+```
+<button>
+```
+
+أما إذا كان:
+
+```
+Click → Navigate
+```
+
+فاستخدمي غالبًا:
+
+```
+<ahref="/products">
+```
+
+وهذه نقطة مهمة جدًا:
+
+> **Button for actions, link for navigation.**
+> 
+
+---
+
+# 14.2 Don't Nest Interactive Elements Incorrectly
+
+## لماذا لا نضع `<button>` داخل `<button>`؟
+
+❌
+
+```
+<button>
+    Save<button>
+        Edit</button></button>
+```
+
+هذا تركيب غير صحيح لأنك وضعت عنصرًا تفاعليًا داخل عنصر تفاعلي من نفس النوع.
+
+قد يؤدي ذلك إلى:
+
+- مشاكل في HTML validity
+- سلوك غير متوقع
+- مشاكل في accessibility
+- مشاكل في event handling
+
+---
+
+### ماذا نفعل بدلًا منه؟
+
+إذا كان لديك:
+
+```
+Card
+ ├── Open
+ └── Delete
+```
+
+يمكن أن يكون:
+
+```
+<article><ahref="/product">
+        Product Name</a><buttontype="button">
+        Delete</button></article>
+```
+
+أي أن كل Action له عنصره المناسب.
+
+---
+
+# 14.3 Don't Duplicate IDs
+
+## هل يمكن أن يكون عندي نفس `id` أكثر من مرة؟
+
+❌ لا.
+
+مثال سيئ:
+
+```
+<inputid="email"><inputid="email">
+```
+
+الـ `id` يجب أن يكون **unique داخل document**.
+
+---
+
+### لماذا هذا مهم؟
+
+لأننا قد نستخدم:
+
+```
+document.getElementById("email");
+```
+
+وكذلك:
+
+```
+<labelfor="email">
+    Email</label>
+```
+
+إذا كان هناك أكثر من عنصر بنفس الـ ID، تصبح العلاقة غير واضحة وقد يؤدي ذلك إلى سلوك غير متوقع.
+
+---
+
+### الصحيح
+
+```
+<labelfor="email">
+    Email</label><inputid="email">
+```
+
+وإذا كان لدينا input آخر:
+
+```
+<labelfor="phone">
+    Phone</label><inputid="phone">
+```
+
+---
+
+# 14.4 Use Proper Heading Hierarchy
+
+هذه النقطة غطيناها بالتفصيل في الفصل 12، وهنا نضعها كـ **Best Practice**.
+
+لا تختاري:
+
+```
+<h1>
+```
+
+لمجرد أنك تريدين عنوانًا كبيرًا.
+
+الترتيب يجب أن يعكس **بنية المحتوى**.
+
+مثال جيد:
+
+```
+<h1>Products</h1><h2>Dresses</h2><h3>Evening Dresses</h3><h3>Casual Dresses</h3><h2>Shoes</h2>
+```
+
+وليس:
+
+```
+<h1>Products</h1><h4>Dresses</h4><h2>Shoes</h2>
+```
+
+### لماذا؟
+
+لأن Heading Structure تساعد في:
+
+- فهم محتوى الصفحة
+- Accessibility
+- Screen Readers
+- Semantic Structure
+- SEO
+
+---
+
+# 14.5 Always Associate `<label>` With Form Controls
+
+هذه من أهم Best Practices في HTML Forms.
+
+❌ مثال غير جيد:
+
+```
+<inputtype="email">
+```
+
+الأفضل:
+
+```
+<labelfor="email">
+    Email</label><inputid="email"type="email">
+```
+
+لاحظي العلاقة:
+
+```
+label for="email"
+        ↓
+input id="email"
+```
+
+---
+
+## طريقة أخرى
+
+يمكن أيضًا وضع الـ input داخل الـ label:
+
+```
+<label>
+    Email<inputtype="email"></label>
+```
+
+وهذا أيضًا valid.
+
+---
+
+# لماذا `<label>` مهم؟
+
+ليس فقط لأن الشكل يظهر:
+
+```
+Email
+[____________]
+```
+
+لكن لأن الـ label يعطي الـ input **Accessible Name** مناسبًا ويساعد المستخدم على فهم وظيفة الحقل.
+
+كما أن الضغط على الـ label يمكن أن يركز/يفعّل عنصر الإدخال المرتبط به.
+
+---
+
+# مثال حقيقي
+
+بدل:
+
+```
+<div>Email</div><inputtype="email">
+```
+
+استخدمي:
+
+```
+<labelfor="email">
+    Email</label><inputid="email"name="email"type="email"autocomplete="email">
+```
+
+وهنا أصبح لدينا:
+
+- Semantic HTML
+- Accessibility
+- Form association
+- Proper `id`
+- Proper `name`
+- Useful autocomplete
+
+---
+
+# 14.6 Don't Use HTML Elements Only for Styling
+
+هذه قاعدة Senior مهمة.
+
+❌ خطأ:
+
+```
+<h1class="small-text">
+    Product</h1>
+```
+
+فقط لأنك تريد Font Size معين.
+
+أو:
+
+```
+<h2class="huge-title">
+    Subtitle</h2>
+```
+
+بناءً على التصميم فقط.
+
+الأفضل:
+
+```
+<h2>
+    Product Details</h2>
+```
+
+ثم:
+
+```
+h2 {
+    font-size:32px;
+}
+```
+
+### القاعدة:
+
+```
+HTML
+↓
+Meaning
+
+CSS
+↓
+Appearance
+```
+
+---
+
+# 14.7 Use the Correct Element for the Job
+
+بدل استخدام:
+
+```
+<div>
+```
+
+لكل شيء، اسألي نفسك:
+
+> هل يوجد عنصر HTML له معنى أفضل؟
+> 
+
+مثلاً:
+
+| الحاجة | العنصر المناسب |
+| --- | --- |
+| Navigation | `<nav>` |
+| Main content | `<main>` |
+| Article | `<article>` |
+| Section | `<section>` |
+| Button action | `<button>` |
+| Navigation link | `<a>` |
+| Form label | `<label>` |
+| Heading | `<h1>`–`<h6>` |
+| List | `<ul>` / `<ol>` |
+| Table data | `<table>` |
+
+هذه هي فكرة:
+
+> **Semantic HTML**
+> 
+
+---
+
+# 14.8 Don't Use Links as Buttons
+
+❌
+
+```
+<ahref="#"onclick="deleteUser()">
+    Delete</a>
+```
+
+إذا كان الهدف:
+
+```
+Delete User
+```
+
+وهو Action، فالأفضل:
+
+```
+<buttontype="button">
+    Delete</button>
+```
+
+أما إذا كان الهدف الانتقال:
+
+```
+<ahref="/users">
+    View Users</a>
+```
+
+إذن:
+
+```
+Navigation → <a>
+
+Action → <button>
+```
+
+---
+
+# 14.9 Use `type` Explicitly for Buttons Inside Forms
+
+هذه Best Practice مهمة.
+
+بدل:
+
+```
+<button>
+    Cancel</button>
+```
+
+داخل Form، الأفضل تحديد النوع:
+
+```
+<buttontype="button">
+    Cancel</button>
+```
+
+أو:
+
+```
+<buttontype="submit">
+    Submit</button>
+```
+
+لأن `<button>` داخل `<form>` يكون افتراضيًا من نوع **submit** إذا لم تحددي `type`.
+
+وهذا قد يسبب Submit غير مقصود.
+
+---
+
+# 14.10 Don't Disable Accessibility With HTML
+
+مثلاً:
+
+❌
+
+```
+<divonclick="openMenu()">
+    Menu</div>
+```
+
+أو:
+
+```
+<buttontabindex="-1">
+    Submit</button>
+```
+
+بدون سبب.
+
+أو استخدام:
+
+```
+<divaria-hidden="true">
+```
+
+على محتوى يجب أن يراه مستخدم Screen Reader.
+
+الفكرة:
+
+> لا تستخدم HTML أو ARIA بطريقة تلغي السلوك الطبيعي أو إمكانية الوصول دون سبب واضح.
+> 
+
+---
+
+# 14.11 Use `alt` Correctly With Images
+
+هذه أيضًا من أهم HTML Best Practices.
+
+الصورة المهمة:
+
+```
+<imgsrc="dress.jpg"alt="Black evening dress with long sleeves">
+```
+
+أما الصورة الزخرفية:
+
+```
+<imgsrc="decoration.svg"alt="">
+```
+
+لا تكتبي:
+
+```
+alt="image"
+```
+
+فقط لأنك مطالبة بوجود `alt`.
+
+---
+
+# 14.12 Don't Use Invalid HTML Nesting
+
+مثلاً لا تضعي عناصر في أماكن لا تسمح بها قواعد HTML.
+
+الهدف ليس فقط أن "المتصفح يعرض الصفحة".
+
+المتصفحات لديها HTML parsing rules وقد تقوم بإصلاح بعض الأخطاء تلقائيًا، لكن لا يجب الاعتماد على ذلك.
+
+---
+
+# 14.13 Use `name` for Form Submission
+
+وجود:
+
+```
+<inputid="email">
+```
+
+وحده لا يعني أن قيمة الحقل سترسل مع Form submission.
+
+غالبًا تحتاجين:
+
+```
+<inputid="email"name="email">
+```
+
+لأن `name` هو المفتاح المستخدم في بيانات النموذج.
+
+مثلاً:
+
+```
+email=hanan@example.com
+```
+
+وهذه نقطة مهمة جدًا في المشاريع الحقيقية والمقابلات.
+
+---
+
+# 14.14 Don't Overuse ARIA
+
+قاعدة مهمة:
+
+> **Use native HTML semantics whenever possible before adding ARIA.**
+> 
+
+بدل:
+
+```
+<divrole="button"tabindex="0">
+    Save</div>
+```
+
+استخدمي:
+
+```
+<buttontype="button">
+    Save</button>
+```
+
+العنصر Native أفضل لأنه يأتي بالسلوك والـ semantics المناسبة.
+
+---
+
+# 🎯 أهم قاعدة في الفصل
+
+كل هذه الـ Best Practices يمكن اختصارها في سؤال واحد تسألينه لنفسك:
+
+> **"هل أستخدم عنصر HTML الذي يعبر عن المعنى الحقيقي لهذا المحتوى أو السلوك؟"**
+> 
+
+مثلاً:
+
+```
+عنوان
+↓
+<h1>–<h6>
+
+رابط
+↓
+<a>
+
+Action
+↓
+<button>
+
+Navigation
+↓
+<nav>
+
+Form Label
+↓
+<label>
+
+Main Content
+↓
+<main>
+```
+
+---
+
+# أسئلة Senior مهمة
+
+### Why is semantic HTML better than generic `<div>` elements?
+
+> Semantic elements communicate the purpose and structure of content to browsers, assistive technologies, developers, and search engines.
+> 
+
+### Why shouldn't a `<div>` be used as a button?
+
+> It does not provide the native semantics, keyboard behavior, focus behavior, and accessibility features of a real button.
+> 
+
+### Can IDs be duplicated?
+
+> IDs should be unique within a document.
+> 
+
+### Why should form controls have labels?
+
+> Labels provide an accessible name and establish a clear association between the label and the form control.
+> 
+
+### Why shouldn't HTML elements be chosen based on visual appearance?
+
+> HTML should represent semantic meaning, while CSS should control presentation.
+> 
+
+### When should you use `<a>` vs `<button>`?
+
+> Use `<a>` for navigation and `<button>` for actions.
+> 
+
+---
+
+## 📌 تنظيم الفصل
+
+حتى لا نكرر المعلومات الموجودة في الفصول السابقة، أقترح أن يكون **14. HTML Best Practices** فصلًا تطبيقيًا يجمع القواعد التي درسناها:
+
+```
+14.1 Semantic HTML
+14.2 Interactive Elements
+14.3 IDs & Attributes
+14.4 Forms & Labels
+14.5 Headings
+14.6 Images & Accessibility
+14.7 Buttons & Links
+14.8 HTML Validation & Nesting
+14.9 Native HTML vs ARIA
+14.10 General HTML Guidelines
+```
+
+وبالتالي لا نعيد شرح `Heading Hierarchy` أو Forms من الصفر؛ نذكر القاعدة ونربطها بالفصل الذي شرحها بالتفصيل.
+
+# الفصل الرابع عشر: أفضل الممارسات والأخطاء الشائعة في HTML (`HTML Best Practices`)
+
+### مثال الكود:
+
+HTML
+
+```
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML Best Practices Example</title>
+  <style>
+    .btn {
+      padding: 10px 16px;
+      border: none;
+      background-color: #2563eb;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }</style>
+</head>
+<body>
+
+  <!-- 1. استخدام Heading Hierarchy صحيحة وعدم تكرار الـ ID -->
+  <h1>إعدادات الحساب الشخصي</h1>
+
+  <main>
+    <section>
+      <h2>تغيير كلمة المرور</h2>
+
+      <!-- 2. ربط عنصر الإدخال بـ <label> باستخدام for و id فريد -->
+      <form>
+        <div>
+          <label for="current-password">كلمة المرور الحالية:</label>
+          <input type="password" id="current-password" name="currentPassword">
+        </div>
+
+        <div>
+          <label for="new-password">كلمة المرور الجديدة:</label>
+          <input type="password" id="new-password" name="newPassword">
+        </div>
+
+        <!-- 3. استخدام <button> حقيقي ومباشر دون تداخل أزرار أو استخدام <div> -->
+        <button type="submit" class="btn">حفظ التغييرات</button>
+      </form>
+    </section>
+  </main>
+
+</body>
+</html>
+```
+
+### أفضل الممارسات الخمس وقواعدها الذهبية:
+
+#### 1. عدم استخدام `<div>` كزر (`No Div-Buttons`)
+
+- **المشكلة:** تحويل `<div>` إلى زر عبر إضافة `onclick` يجعله غير قابل للوصول عبر لوحة المفاتيح (الكيبورد)، ولا يستجيب لزري `Enter` أو `Space` تلقائياً، ولا تقرؤه قارئات الشاشة كعنصر تفاعلي.
+- **الحل الصحيح:** استخدم عنصر `<button>` الأصلي دائماً.
+- **الاستثناء الوحيد:** إذا اضطررت لاستخدامه لأسباب قاهرة، يجب إضافة `role="button"` و `tabindex="0"` مع معالجة أحداث لوحة المفاتيح عبر JavaScript يدوياً.
+
+#### 2. عدم وضع `<button>` داخل `<button>` (`No Nested Buttons`)
+
+- **المشكلة:** يمنع معيار HTML كتابة زري تفاعل متداخلين (Nested Interactive Elements). عند قيامك بذلك، يتشوه بناء الـ DOM ومخطط الشجرة (DOM Parser Error)، وتقوم المتصفحات بشكل آلي بإغلاق الوسم الأول بشكل خاطئ.
+- **الحل الصحيح:** اجعل كل زر مستقلاً تماماً في شجرة الـ DOM، أو استخدم عناصر منفصلة كـ `<span>` داخل الزر إذا كنت تريد إضافة رمز أو تنسيق بصري.
+
+#### 3. عدم تكرار معرفات الـ ID (`Unique IDs`)
+
+- **المشكلة:** معرف الـ `id` صُمم ليكون **معرّفاً فريداً للغاية** على مستوى الصفحة كاملة. تكرار نفس الـ `id` يؤدي إلى:
+    - فشل استعلامات JavaScript مثل `document.getElementById()` التي تعيد فقط العنصر الأول وتتجاهل البقية.
+    - حدوث مشاكل في ربط الـ `<label for="...">` وعناصر Accessibility بـ `aria-labelledby`.
+- **الحل الصحيح:** استخدم الأسماء الفريدة لـ `id` للربط البنائي، واستخدم الـ `class` للتنسيقات المتكررة.
+
+#### 4. استخدام هرمية عناوين صحيحة (`Correct Heading Hierarchy`)
+
+- **المشكلة:** اختيار وسوم العناوين (`<h1>` إلى `<h6>`) بناءً على حجم الخط المطلوب بـ CSS بدلاً من الترتيب المنطقي، أو نُط المستويات (مثل الانتقال من `<h1>` إلى `<h3>` مباشرة).
+- **الحل الصحيح:**
+    - استخدم `<h1>` واحد فقط لكل صفحة للعنوان الرئيسي.
+    - تسلسل تدرجياً (`<h1>` ➔ `<h2>` ➔ `<h3>`).
+    - تتحكم CSS فقط في الحجم والشكل، بينما يحدد الوسم المعنى الهيكلي فقط.
+
+#### 5. ربط `<label>` بعناصر الإدخال (`Labeling Inputs`)
+
+- **المشكلة:** ترك حقول الإدخال `<input>` بدون `<label>` مجهولة بالنسبة لقارئات الشاشة، كما يقلل مساحة النقر للمستخدم العادي (حيث النقر على النص لن يركز على حقل الإدخال).
+- **الحل الصحيح:**
+    - ربط صريح عبر خاصية `for` على الـ `<label>` تتطابق مع `id` الـ `<input>`.
+    - أو تضمين الـ `<input>` مباشرة داخل وسم `<label>`.
+
+### ملخص مقارنة الأخطاء والتصحيح:
+
+| **الممارسة الخاطئة (Bad Practice)** | **الممارسة الصحيحة (Best Practice)** | **السبب / الفائدة** |
+| --- | --- | --- |
+| `<div onclick="submit()">حفظ</div>` | `<button type="button">حفظ</button>` | إمكانية الوصول التلقائية بدعم الكيبورد وقارئات الشاشة. |
+| `<button><button>X</button></button>` | أزرار منفصلة متجاورة | منع تشوه شجرة الـ DOM وامتثال لقياسات HTML. |
+| `<input id="user"><input id="user">` | `<input id="user-1"><input id="user-2">` | ضمان عمل استعلامات JS وربط الـ Labels بشكل صحيح. |
+| `<h1>عنوان</h1> <h3>فرعي</h3>` | `<h1>عنوان</h1> <h2>فرعي</h2>` | تقديم خريطة هيكلية صحيحة لـ SEO وقارئات الشاشة. |
+| `<span>الاسم:</span> <input>` | `<label for="name">الاسم:</label> <input id="name">` | زيادة مساحة النقر ومساعدة قارئات الشاشة على معرفة نوع الحقل. |
+
+### جملتك النموذجية في المقابلة:
+
+> **"Adhering to HTML Best Practices is critical for semantic integrity, accessibility, and robust DOM manipulation. We must always use native `<button>` elements instead of `<div>`s for interactive triggers, avoid nesting buttons to prevent DOM parsing errors, enforce strictly unique `id` attributes across the document, strictly maintain a sequential heading hierarchy from `<h1>` down to `<h6>`, and explicitly link all `<input>` elements with appropriate `<label>` elements via matching `for` and `id` attributes**
+> 
+
+الفصل الخامس عشر
+أشهر أسئلة Senior
+
+مثل:
+
+Why not use div as a button?
+Why only one main element?
+Difference between DOM and HTML?
+How browsers parse HTML?
+Why use defer?
+What happens if alt is empty?
+What happens if labels are missing?
+Difference between preload and prefetch?
+Why does screen reader care about semantic HTML?
+
+---
+
+## 15.1 Why shouldn't you use `<div>` as a button?
+
+### الإجابة
+
+لأن `<button>` عنصر تفاعلي Native، ويأتي معه semantics وسلوكيات أساسية مثل:
+
+- Keyboard interaction
+- Focus behavior
+- Accessibility
+- Form integration
+
+بينما `<div>` مجرد container.
+
+❌
+
+```
+<divonclick="saveData()">
+    Save</div>
+```
+
+✅
+
+```
+<buttontype="button"onclick="saveData()">
+    Save</button>
+```
+
+### Senior Answer
+
+> I use `<button>` for actions because it provides native semantics, keyboard behavior, focus management, and accessibility. I wouldn't recreate button behavior with a `<div>` unless there is an extremely specific reason.
+> 
+
+---
+
+# 15.2 Why should a page normally have one `<main>` element?
+
+### الإجابة
+
+`<main>` يمثل **المحتوى الرئيسي للصفحة**.
+
+```
+<body><header>...</header><nav>...</nav><main>
+        Page Content</main><footer>...</footer></body>
+```
+
+وجود أكثر من `<main>` في نفس الوقت يجعل تحديد المحتوى الرئيسي للصفحة غير واضح.
+
+والـ HTML specification يسمح بوجود أكثر من `<main>` فقط إذا كان **واحدًا منها ظاهرًا في الـ document في الوقت نفسه**، مثل layouts تعتمد على hidden/inactive views.
+
+لذلك كقاعدة عملية:
+
+> **Use one visible `<main>` landmark per page.**
+> 
+
+---
+
+# 15.3 What is the difference between HTML and the DOM?
+
+هذه من أهم الأسئلة.
+
+### HTML
+
+هو الـ markup الذي يكتبه المطور أو يستلمه المتصفح.
+
+```
+<h1>Hello</h1>
+```
+
+### DOM
+
+هو التمثيل الداخلي للشجرة الذي ينشئه المتصفح ويمكن لـ JavaScript التعامل معه.
+
+```
+HTML
+ ↓
+Parser
+ ↓
+DOM
+```
+
+### Senior Answer
+
+> HTML is the markup language used to describe the document, while the DOM is the browser's object-based representation of that document that scripts and browser APIs can interact with.
+> 
+
+---
+
+# 15.4 How do browsers parse HTML?
+
+بشكل مبسط:
+
+```
+HTML Response
+      ↓
+HTML Parser
+      ↓
+DOM
+```
+
+المتصفح:
+
+1. يستقبل HTML.
+2. يبدأ parsing.
+3. يحلل الـ tags والـ attributes والنصوص.
+4. يبني DOM Tree.
+5. أثناء parsing قد يكتشف resources مثل CSS وJavaScript والصور ويبدأ في طلبها.
+6. CSS يتم تحليله بشكل منفصل.
+7. بعد توفر المعلومات اللازمة، تبدأ مراحل rendering.
+
+### Senior Answer
+
+> The browser tokenizes and parses the HTML according to the HTML parsing algorithm and builds the DOM tree. As resources are discovered, the browser can fetch them, while CSS and scripts can affect how parsing and rendering proceed.
+> 
+
+النقطة المهمة: لا تقولي ببساطة:
+
+> HTML → DOM → Screen
+> 
+
+لأن عملية الـ rendering أكثر تعقيدًا.
+
+---
+
+# 15.5 Why use `defer`?
+
+مثال:
+
+```
+<scriptsrc="app.js"defer></script>
+```
+
+`defer` يجعل تحميل الـ script يتم بالتوازي مع HTML parsing، لكن تنفيذ الـ script يتم بعد اكتمال parsing للـ document، وقبل `DOMContentLoaded`.
+
+مقارنة سريعة:
+
+```
+<script>
+    ↓
+Parsing يتوقف أثناء التنفيذ
+```
+
+بينما:
+
+```
+<script defer>
+    ↓
+HTML parsing يستمر
+    ↓
+بعد اكتمال parsing
+    ↓
+Script executes
+```
+
+### Senior Answer
+
+> `defer` allows an external classic script to download without blocking HTML parsing and executes it after the document has been parsed, while preserving the order of deferred scripts.
+> 
+
+---
+
+# 15.6 What happens if `alt=""`?
+
+هذه نقطة مهمة جدًا.
+
+```
+<imgsrc="decoration.svg"alt="">
+```
+
+الـ empty `alt` تعني أن الصورة **زخرفية أو غير مهمة للمحتوى**، وبالتالي يمكن لـ assistive technologies تجاهلها.
+
+وهذا أفضل من:
+
+```
+alt="image"
+```
+
+لصورة زخرفية.
+
+### مثال:
+
+```
+<imgsrc="decorative-line.svg"alt="">
+```
+
+لكن إذا كانت الصورة تحمل معنى:
+
+```
+<imgsrc="product.jpg"alt="Black evening dress">
+```
+
+فلا يجب أن يكون `alt` فارغًا.
+
+### Senior Answer
+
+> An empty `alt` tells assistive technologies that the image is decorative or does not add meaningful information, allowing them to skip it.
+> 
+
+---
+
+# 15.7 What happens if labels are missing?
+
+مثلاً:
+
+❌
+
+```
+<inputtype="email"placeholder="Email">
+```
+
+وجود `placeholder` **ليس بديلًا عن `<label>`**.
+
+الأفضل:
+
+```
+<labelfor="email">
+    Email</label><inputid="email"type="email"name="email">
+```
+
+بدون label مناسب، قد لا يحصل المستخدم الذي يعتمد على assistive technology على اسم واضح للحقل.
+
+وهذا يؤثر على:
+
+- Accessibility
+- Usability
+- Screen Readers
+- Form understanding
+
+### Senior Answer
+
+> Form controls should have an accessible name. A visible `<label>` is the preferred native mechanism for associating a meaningful label with a form control.
+> 
+
+---
+
+# 15.8 What is the difference between `preload` and `prefetch`?
+
+هنا مهم جدًا ألا نخلط بينهما.
+
+### `preload`
+
+يخبر المتصفح أن Resource معين **مهم للصفحة الحالية** ويُتوقع أن تحتاجه قريبًا.
+
+مثلاً:
+
+```
+<linkrel="preload"href="/fonts/main.woff2"as="font"crossorigin>
+```
+
+الفكرة:
+
+```
+Current Page
+     ↓
+Important Resource
+     ↓
+Load Earlier
+```
+
+---
+
+### `prefetch`
+
+يخبر المتصفح أن Resource قد تحتاجه **لاحقًا**.
+
+```
+Current Page
+     ↓
+Possible Future Resource
+     ↓
+Prefetch
+```
+
+مثلاً Resource مرتبطة بالصفحة التالية.
+
+### الفرق:
+
+| `preload` | `prefetch` |
+| --- | --- |
+| للصفحة الحالية | لاستخدام محتمل مستقبلًا |
+| High priority hint نسبيًا | Low-priority future hint |
+| استخدمه بحذر | يستخدم للموارد المحتملة لاحقًا |
+
+### Senior Answer
+
+> `preload` is used for resources that are important to the current page and are expected to be needed soon, while `prefetch` is a hint for resources that may be needed in the future.
+> 
+
+---
+
+# 15.9 Why does a screen reader care about semantic HTML?
+
+لأن Semantic HTML يعطي العناصر **meaning**.
+
+مثلاً:
+
+```
+<nav>
+```
+
+أوضح بكثير من:
+
+```
+<divclass="navigation">
+```
+
+وكذلك:
+
+```
+<button>
+```
+
+بدل:
+
+```
+<divonclick="...">
+```
+
+Screen Reader يستطيع استخدام هذه semantics لبناء وفهم **Accessibility Tree** وتوفير navigation للمستخدم.
+
+مثلاً:
+
+```
+<nav>
+<main>
+<button>
+<h1>
+<form>
+```
+
+لها معانٍ يمكن لتقنيات المساعدة فهمها.
+
+### Senior Answer
+
+> Screen readers rely heavily on the semantic information exposed by the browser's accessibility tree. Semantic HTML provides meaningful roles, relationships, and structure, making navigation and interaction easier for users who rely on assistive technologies.
+> 
+
+---
+
+# 🎯 مجموعة أسئلة Senior إضافية أنصح بإضافتها
+
+بما أننا نريد أن يكون الفصل فعلًا بمستوى Senior، لا أرى أن نتوقف عند التسعة الموجودة فقط.
+
+أضيفي أيضًا:
+
+### 1. What is the difference between `async` and `defer`?
+
+مهم جدًا مع:
+
+```
+<script>
+```
+
+---
+
+### 2. Why is `button type="button"` important inside forms?
+
+لأن `<button>` داخل form يكون `submit` افتراضيًا إذا لم تحددي النوع.
+
+---
+
+### 3. Why is `name` important on form controls?
+
+لأنه يستخدم كـ key عند إرسال بيانات الـ form.
+
+---
+
+### 4. What is the difference between `id` and `name`?
+
+مهم جدًا في Forms.
+
+```
+id
+↓
+DOM / label association / CSS / JS
+
+name
+↓
+Form submission
+```
+
+---
+
+### 5. Why should you use `<a>` instead of `<button>` for navigation?
+
+```
+Navigation → <a>
+Action     → <button>
+```
+
+---
+
+### 6. What is the difference between `hidden`, `display: none`, and `aria-hidden`?
+
+سؤال Accessibility مهم جدًا.
+
+---
+
+### 7. What is progressive enhancement?
+
+من المفاهيم المهمة جدًا في Web Platform.
+
+---
+
+### 8. What is graceful degradation?
+
+ومهم فهم الفرق بينه وبين Progressive Enhancement.
+
+---
+
+### 9. What is the difference between `<section>`, `<article>`, and `<div>`?
+
+من أشهر أسئلة Semantic HTML.
+
+---
+
+### 10. Why should you use `<button>` instead of `<input type="button">`?
+
+سؤال جيد لفهم الفرق بين عناصر الـ forms الحديثة.
+
+---
+
+### 11. What is the difference between `readonly` and `disabled`?
+
+خصوصًا في Form submission.
+
+---
+
+### 12. What happens when a form control has no `name`?
+
+مهم جدًا لفهم Form submission.
+
+---
+
+### 13. What is the difference between `autocomplete`, `autofocus`, and `placeholder`?
+
+سؤال جيد في Forms وUX.
+
+---
+
+### 14. What is the difference between `canonical`, `og:url`, and the page URL?
+
+يربط بين SEO وSocial Metadata.
+
+---
+
+### 15. What happens when JavaScript modifies the DOM?
+
+يربط:
+
+```
+JavaScript
+ ↓
+DOM mutation
+ ↓
+Style/Layout/Paint
+```
+
+وهذا سؤال ممتاز للانتقال من HTML إلى Browser Rendering.
+
+---
+
+**الفصل الخامس عشر: أسئلة المقابلات المتقدمة للمستويات العليا (`Senior HTML Interview Questions`)**
+هذه الإجابات مُصممة بأسلوب تقني عميق ليناسب توقّعات مسؤولي المقابلة للمستويات العليا (**Senior Frontend Engineers**).
+**1. لماذا لا نستخدم `<div>` كزر؟ (`Why not use div as a button?`)**
+استخدام `<div>` كزر يتطلب إعادة كتابة ميزات مدمجة محلياً في المتصفح، مما يُضعف إمكانية الوصول والتفاعل:
+• **إدارة التركيز (Focus Management):** عنصر `<button>` يدخل تلقائياً في مسار التنقل بـ (Tab). مع الـ `<div>` تضطر لإضافة `tabindex="0"` يدوياً.
+• **دعم لوحة المفاتيح (Keyboard Events):** الزر الأصلي يتفاعل تلقائياً مع زر `Enter` وزر `Space`. بينما الـ `<div>` يلزمه كود JS إضافي للتحقق من `event.key`.
+• **شجرة إمكانية الوصول (Accessibility Tree):** الزر يمتلك دوراً بنوياً صريحاً (`role="button"`)، بينما الـ `<div>` هو وسم محايد يجهله قارئ الشاشة ما لم تُضف له خصائص ARIA.
+• **دعم الاستمارات (Form Submission):** الزر يعمل تلقائياً كـ `type="submit"` داخل الاستمارات، بخلاف الـ `<div>`.
+**2. لماذا نستخدم وسم `<main>` واحد فقط بالصفحة؟ (`Why only one main element?`)**
+• **المعيار القياسي (HTML Specification):** صُمم وسم `<main>` ليمثل **المحتوى الفريد والأساسي** للمستند والذي لا يتكرر عبر صفحات الموقع (بعكس الـ Header والـ Footer).
+• **إشارة مرجعية (Landmark Navigation):** تعتمد قارئات الشاشة عليه لنقل المستخدم فوراً إلى جوهر الصفحة عبر اختصارات "Skip to Content".
+• **ملاحظة تقنية:** يُسمح بوجود أكثر من وسم `<main>` بشرط أن تكون بقية الوسوم مخفية صراحة بـ `hidden`.
+**3. ما الفرق بين الـ DOM والـ HTML؟ (`Difference between DOM and HTML?`)وجه المقارنةHTML (Source Code)DOM (Document Object Model)الطبيعة**نص خام أو سلسلة نصية (Text File / Stream) تُرسل من السيرفر.كائن شجري مركب بالذاكرة (In-Memory Object Model).**التغير**ثابت ولا يتغير بعد وصوله من السيرفر.ديناميكي ويتحين فوراً عند التعديل بـ JavaScript.**التصحيح**يحتوي على أخطاء المطور (مثل نسق وسم غير مغلق).يقوم المتصفح بتصحيح الأخطاء آلياً عند إنشائه.
+**4. كيف يحلل المتصفح شفرة الـ HTML؟ (`How browsers parse HTML?`)**
+1. **Bytes to Characters:** تحويل البايتات القادمة من الشبكة إلى نصوص بناءً على ترميز الملف (مثل `UTF-8`).
+2. **Tokenization:** تحويل النصوص إلى رموز بناءة (Tokens) مثل `StartTag: body`, `TagData`, `EndTag: body`.
+3. **Nodes Creation:** تحويل الرموز إلى عقد برمجية (Objects) تمتلك الخصائص والقواعد.
+4. **DOM Tree Construction:** ربط العقد بعلاقات الآباء والأبناء لتكوين شجرة الـ DOM الرسمية.
+5. **Speculative Parsing:** محرك المتصفح يقرأ الكود للأمام ليبدأ بتحميل الصور وملفات CSS/JS المتبقية بالتوازي.
+**5. لماذا نستخدم الخاصية `defer` لتضمين السكريبتات؟ (`Why use defer?`)**
+• **عدم تعطيل التحليل (Non-Parser Blocking):** يتم تنزيل ملف السكريبت بالخلفية بالتوازي مع تحليل الـ HTML دون إيقاف بناء الـ DOM.
+• **الترتيب المنطقي:** تضمن تنفيذ السكريبتات بنفس **ترتيب كتابتها** بالملف (بعكس `async` التي تنفذ فور اكتمال تحكمها).
+• **التنفيذ بعد الـ DOM:** لا تُنفذ سكريبتات `defer` إلا بعد اكتمال بناء شجرة الـ DOM بالكامل وقبل حدوث حدث `DOMContentLoaded`.
+**6. ماذا يحدث إذا كانت خاصية `alt` فارغة أو مفقودة؟ (`alt="" vs missing alt`)الحالةالتنسيق البرمجيسلوك قارئ الشاشة (Screen Reader)فارغة (`alt=""`)**`<img src="decor.png" alt="">`يُعامل الصورة كعنصر زخرفي (Decorative) و**يتجاهلها تماماً** دون نطق أي شيء.**مفقودة تماماً**`<img src="product.png">`**تجربة سيئة!** يقرأ مسار الملف أو اسم الصورة `src` حرفياً للمستخدم الكفيف.
+**7. ماذا يحدث عند غياب وسم `<label>` عن حقول الإدخال؟ (`Missing Labels`)**
+• **فقدان السياق للـ Screen Readers:** ينطق قارئ الشاشة "Edit text, blank" دون توضيح نوع البيانات المطلوبة (هل هو اسم؟ كلمة سر؟ أم إيميل؟).
+• **تقليل مساحة النقر (Touch Target):** يفقد المستخدم القدرة على التركيز داخل الحقل عند النقر على النص المجاور له.
+• **تعطيل الملء التلقائي (Autofill):** تجد المتصفحات ومديرات كلمات المرور صعوبة في التعرف على نوع الحقل لملئه آلياً.
+**8. ما الفرق بين `preload` و `prefetch`؟الخصائصrel="preload"rel="prefetch"الأولوية**عالية جداً (High Priority).منخفضة (Low Priority / Idle).**الاستخدام**لمورد يحتاجه **المستند الحالي فوراً** (مثل خط أساسي، أو صورة Hero critical).لمورد سينتقل إليه المستخدم **في الصفحة التالية** (Next Navigation).**وقت التحميل**يُجبر المتصفح على تنزيله أثناء مرحلة الـ Render الحالية.ينزله المتصفح في أوقات الفراغ وخمول الشبكة.
+**9. لماذا تهتم قارئات الشاشة بالـ Semantic HTML؟ (`Why Screen Readers Care?`)**
+• **إنشاء شجرة إمكانية الوصول (Accessibility Tree):** يعتمد المتصفح على الأوسمة الدلالية لبناء الـ A11y Tree التي تقرأها البرامج المساعدة.
+• **توفير الأدوار والحالات المدمجة (Implicit Roles & States):** يوفر الوسم الدلالي معلومات مثل الزر مضغوط أم لا (`aria-expanded`) وحالة الخيار مختار أم لا دون الحاجة للتدخل البرمجي.
+• **التنقل عبر معالم الصفحة (Landmark Navigation):** يتيح للمكفوفين القفز المباشر بين المقاطع الرئيسية (`<nav>`, `<main>`, `<article>`, `<footer>`) بضغطة زر واحدة.
+
+# بطاقة 1: العناصر الدلالية وإمكانية الوصول (Semantic HTML & A11y)
+
+| **المفهموم / العنصر** | **القاعدة الذهبية** | **السبب والنتيجة** |
+| --- | --- | --- |
+| **`<button>` مقابل `<div>`** | استخدم `<button>` دائماً للأفعال والتفاعلات. | يوفر التركيز بمفتاح Tab ودعم زر `Enter/Space` ودور `role="button"` تلقائياً. |
+| **وسم `<main>`** | وسم واحد فقط ظاهر بالصفحة. | يمثل الجوهر الفريد للمستند، ويتيح لقارئات الشاشة القفز للمحتوى عبر Landmark Navigation. |
+| **ربط `<label>`** | ربط صريح عبر `for="id_name"` مع `id="id_name"`. | يمنح قارئ الشاشة سياق الحقل، ويزيد المساحة القابلة للنقر (Touch Target). |
+| **خاصية `alt` للصور** | `alt=""` للصور الزخرفية، بينما تركها مفقودة **خطأ جسيم**. | `alt=""` يتجاهل الصورة، بينما غياب الخاصية يجعل قارئ الشاشة يقرأ مسار الملف المعقد. |
+
+# بطاقة 2: معالجة المتصفح والأداء (Browser Rendering & Performance)
+
+- **HTML vs DOM:** الـ HTML نص خام ثابت يُرسل من السيرفر، بينما الـ DOM هو كائن شجري ديناميكي يتشكل بذاكرة المتصفح ويقبل التعديل بـ JS.
+- **الـ Render Tree:** يتكون من دمج **DOM + CSSOM**. يحتوي فقط على العناصر المرئية (يستبعد الوسوم المخفية مثل `<head>` أو العناصر المتأثرة بـ `display: none`).
+- **`script defer` مقابل `async`:**
+    - `defer`: يفك الضغط بالتوازي، وينفذ **بالترتيب** بعد اكتمال بناء الـ DOM وقبل `DOMContentLoaded`.
+    - `async`: يفك الضغط بالتوازي، وينفذ **فور التنزيل مباشرة** (يوقف الـ Parser لحظة التنفيذ).
+- **`preload` مقابل `prefetch`:**
+    - `preload`: أولوية عالية جداً لمورد تحتاجه **الصفحة الحالية فوراً** (مثل خط أساسي أو صورة Hero).
+    - `prefetch`: أولوية منخفضة في أوقات الخمول لمورد سيحتاجه المستخدم في **الصفحة التالية**.
+
+# بطاقة 3: البيانات المنظمة والبروتوكولات الاجتماعية (Metadata & Structured Data)
+
+HTML
+
+```
+<!-- JSON-LD: بيانات منظمة لـ Google Rich Results -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Front-End Course",
+  "offers": { "@type": "Offer", "price": "99", "priceCurrency": "USD" }
+}</script>
+
+<!-- Open Graph & Twitter Cards: للبطاقات التفاعلية عند المشاركة -->
+<meta property="og:title" content="عنوان المقال">
+<meta property="og:image" content="https://example.com/thumb.jpg"> <!-- Absolute URL (1200x630px) -->
+<meta name="twitter:card" content="summary_large_image">
+```
+
+# بطاقة 4: قواعد وتحديات Senior HTML Gotchas
+
+- **No Nested Buttons:** يمنع تماماً وضع `<button>` داخل `<button>` لتجنب تشوه شجرة الـ DOM.
+- **Unique IDs:** يمنع تكرار الـ `id` مطلقاً في المستند لضمان صحة استعلامات JS وربط عناصر الـ ARIA.
+- **Heading Hierarchy:** التسلسل الهيكلي (`<h1>` ➔ `<h2>` ➔ `<h3>`) يُستخدم لترتيب أفكار الصفحة منطقياً، ولا علاقة له بحجم الخط البصري.
+- **A11y Tree:** يعتمد المتصفح على HTML الدلالي لبناء شجرة إمكانية الوصول التي تُملى على قارئات الشاشة.
+
+قم بإجراء اختبار اختيارات متعددة MCQ شامل لجميع فصول HTML باللغة العربية
+
+# اختبار قياس مستوى HTML للمستويات المتقدمة (Advanced HTML MCQ Quiz)
+
+تنسيق الاختبار يتكون من **10 أسئلة** اختيار من متعدد تغطي المفاهيم التقنية المتقدمة وأسئلة المقابلات.
+
+### السؤال 1 (سلوك وسم زر متداخل)
+
+**ما الذي يحدث في شجرة الـ DOM عند كتابة الكود التالي: `<button><button>إلغاء</button></button>`؟**
+
+- أ) يتم إنشاء زر داخلي وزر خارجي بشكل صحيح وتحدث ظاهرة הـ Event Bubbling عند النقر.
+- ب) يقوم الـ HTML Parser بإنهاء وإغلاق وسم الزر الأول تلقائياً بمجرد قراءة الزر الثاني، مما ينتج عنه أزرار متجاورة بصورة غير متوقعة بدلاً من زر متداخل.
+- ج) يتوقف المتصفح عن معالجة الصفحة ويظهر خطأ برمي في منصة Console يُسمى `DOM Parsing Error`.
+- د) يظهر الزر الداخلي فقط ويتم تجاهل الزر الخارجي بصرياً ووظيفياً.
+
+### السؤال 2 (معالجة السكريبتات والأداء)
+
+**أي من العبارات التالية تصف سلوك الخاصية `defer` بداخل وسم السكريبت بشكل دقيق؟**
+
+- أ) تقوم بتنزيل السكريبت بالتوازي مع تحليل الـ HTML، ثم تُنفذه فور اكتمال التنزيل مباشرة مسببة إيقاف مؤقت للـ HTML Parser.
+- ب) تقوم بتأجيل تنزيل السكريبت وتنفيذه إلى ما بعد حدث `window.onload`.
+- ج) تقوم بتنزيل السكريبت بالتوازي مع تحليل الـ HTML، وتضمن تنفيذه بالترتيب الصحيح فقط بعد اكتمال بناء الـ DOM وقبل حدث `DOMContentLoaded`.
+- د) تُستخدم فقط مع السكريبتات الداخلية (Inline Scripts) لمنع اعتراض عملية الـ Parsing.
+
+### السؤال 3 (معالجة المتصفح والـ Render Tree)
+
+**عنصر HTML يمتلك التنسيق `display: none` وعنصر آخر يمتلك التنسيق `visibility: hidden`. كيف يتم التعامل معهما أثناء بناء الـ DOM والـ Render Tree؟**
+
+- أ) كلاهما يدخلان في الـ DOM والـ Render Tree ولكن لا يظهران على الشاشة.
+- ب) كلاهما يُستبعدان تماماً من الـ DOM والـ Render Tree.
+- ج) عنصر `display: none` يستبعد من الـ DOM والـ Render Tree، بينما `visibility: hidden` يظل بالـ Render Tree.
+- د) كلاهما يُحفظان داخل شجرة الـ DOM، ولكن `display: none` يُستبعد من الـ Render Tree بينما يظل `visibility: hidden` موجوداً داخل الـ Render Tree.
+
+### السؤال 4 (البيانات المنظمة Structured Data)
+
+**لماذا تُفضل صيغة JSON-LD على صيغة Microdata عند إضافة بيانات Schema.org بصفحات الويب؟**
+
+- أ) لأن JSON-LD تكتب في كود منفصل داخل `<script type="application/ld+json">` في الـ `<head>` مما يفصل البيانات عن الواجهة ويسهل صيانتها.
+- ب) لأن Microdata لا تدعمها محركات البحث الحديثة مثل Google.
+- ج) لأن JSON-LD تسمح بتنفيذ شفرات JavaScript حية داخل محرك البحث.
+- د) لأن Microdata تجبر المتصفح على تحميل ملفات خارجية تضر بـ Performance الصفحة.
+
+### السؤال 5 (المحتوى والوسائط الموائمة)
+
+**ما هو التصرف الصحيح مع خاصية `alt` عند إضافة صورة زخرفية (Decorative Image) لا تقدم أي قيمة معنوية للمحتوى؟**
+
+- أ) حذف خاصية `alt` تماماً من وسم `<img>`.
+- ب) إضافة الخاصية فارغة بالشكل التالي: `alt=""`.
+- ج) كتابة `alt="صورة زخرفية"`.
+- د) استبدال خاصية `alt` بخصائص `title="decorative"`.
+
+### السؤال 6 (وسوم Muted و AutoPlay)
+
+**لماذا تتجاهل المتصفحات الحديثة خاصية `autoplay` في وسوم الوسائط مثل `<video>` أو `<audio>` إذا لم تكن مرفوقة بـ `muted`؟**
+
+- أ) لحماية كارت الشاشة والمعالج من استهلاك الطاقة المفاجئ.
+- ب) لمنع تجربة المستخدم السيئة والتلوث الصوتي عند فتح الصفحات بدعم من سياسات المتصفحات (Autoplay Policies).
+- ج) لأن وسم HTML5 يمنع تنفيذ التشغيل التلقائي برمجياً بدون تعيين المسار عبر JavaScript.
+- د) بسبب معايير الأمان التي تمنع فتح الصوت بدون شهادة SSL تشفيرية (HTTPS).
+
+### السؤال 7 (البيانات الوصفية للروابط Open Graph)
+
+**ما الذي يمنع ظهور صورة الميتا الخاصة بـ Open Graph (`og:image`) بشكل صحيح عند مشاركة رابط الموقع على شبكات التواصل الاجتماعي؟**
+
+- أ) كتابة رابط الصورة كرابط نسبي (Relative URL) مثل `/images/og.png` بدلاً من رابط مطلق كامل (Absolute URL).
+- ب) كتابة الوسم داخل قسم `<body>` بدلاً من `<head>`.
+- ج) استخدام صيغة PNG بدلاً من صيغة SVG.
+- د) كل من (أ) و (ب).
+
+### السؤال 8 (أولويات التحميل Preload vs Prefetch)
+
+**متى يجب أن نستخدم `<link rel="preload">` بدلاً من `<link rel="prefetch">`؟**
+
+- أ) عندما نريد تحميل ملفات الصفحة التالية التي يتوقع أن ينتقل إليها المستخدم لاحقاً.
+- ب) عندما يحتاج المستند الحالي إلى مورد حرج وفوري (مثل خط أساسي أو صورة Hero) أثناء عملية الـ Render الحالية.
+- ج) عندما نريد إجبار المتصفح على حفظ الملف بالـ Cache بدون تنزيله فوراً.
+- د) عندما نهدف لتحميل سكريبتات ضخمة في أوقات خمول الشبكة (Idle Time).
+
+### السؤال 9 (إمكانية الوصول Semantic HTML & A11y)
+
+**لماذا تُعتبر إضافة `role="button"` على عنصر `<div>` غير كافية لجعل العنصر زراً كافياً ومطابقاً لوسم `<button>` الأصلي؟**
+
+- أ) لأن `role="button"` يعطي القارئ الإشارة فقط، ولكنه لا يوفر إمكانية الوصول بـ Tab (Focusability) ولا يتفاعل مع زر `Enter` و `Space` بدون برمجتها بـ JS.
+- ب) لأن `role="button"` يمنع تطبيق تنسيقات الـ CSS على الـ `<div>`.
+- ج) لأن محركات البحث تلغي أرشفة العناصر التي تستخدم `role="button"`.
+- د) لأن وسم `<div>` يمنع التقاط أحداث الـ Mouse Clicks إطلاقاً.
+
+### السؤال 10 (إعادة التجهيز والـ Parser)
+
+**ما هي مرحلة הـ Tokenization أثناء عملية تحليل الـ HTML من قبل المتصفح؟**
+
+- أ) مرحلة تحويل بكسلات الصورة المعروضة على الشاشة إلى كائنات.
+- ب) مرحلة قراءة سلاسل البايتات وتحويلها إلى رموز قياسية صريحة مثل (`StartTag: body` أو `EndTag: body`).
+- ج) مرحلة دمج شجرة الـ DOM مع شجرة الـ CSSOM لبناء الـ Render Tree.
+- د) مرحلة حساب المساحات والأبعاد الأفقية والرأسية للعناصر بالصفحة (Reflow/Layout).
+
+## 🔑 مفتاح الإجابات النموذجية مع التعليل:
+
+| رقم السؤال | الإجابة الصحيحة | السبب التقني المختصر |
+| --- | --- | --- |
+| **1** | **ب** | مواصفات HTML تمنع تداخل الأزرار، ويقوم الـ Parser بتصحيح الكود تلقائياً وإغلاق الزر الأول. |
+| **2** | **ج** | `defer` ينزل بالتوازي وينفذ بالترتيب المنطقي بعد اكتمال الـ DOM مباشرة وقبل `DOMContentLoaded`. |
+| **3** | **د** | `display: none` يلغى من الـ Render Tree، بينما `visibility: hidden` يحجز مساحة بصرية فيظل موجوداً بالـ Render Tree وكلاهما بالـ DOM. |
+| **4** | **أ** | فصل البيانات في كود مستقل يسهلMaintenance ويمتثل لتوصية Google الرسمية. |
+| **5** | **ب** | `alt=""` يوجه قارئ الشاشة لتجاهل الصورة الزخرفية تماماً وتجنب قراءة اسمها للمستخدم الكفيف. |
+| **6** | **ب** | سياسات حماية المستخدم تمنع التشغيل التلقائي للصوت بدون تفاعل مباشر أو دون إضافة `muted`. |
+| **7** | **د** | البوتات تحتاج رابطاً مطلقاً كاملاً تبدأ بـ `https://` ووجود الوسوم داخل كود الـ `<head>`. |
+| **8** | **ب** | `preload` يُستخدم للموارد الفورية الحرجة بالصفحة الحالية، بينما `prefetch` للمستقبل. |
+| **9** | **أ** | `role="button"` يعدل الشجرة الدلالية فقط، بينما سلوكيات لوحة المفاتيح والتركيز تحتاج كود JS أو وسم أصلي. |
+| **10** | **ب** | الـ Tokenization هي الخطوة الوسطية التي تحول نصوص البايتات المترجمة لرموز قبل تكوين الـ Nodes. |
