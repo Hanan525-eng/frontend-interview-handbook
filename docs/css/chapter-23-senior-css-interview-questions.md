@@ -248,3 +248,8 @@ CSS
 
 Senior CSS مش عن حفظ خصائص أكتر. هو فهم ليه المتصفح بيطلّع نتيجة معينة، اختيار الـ layout model الصح، التحكم في الـ Cascade، واتخاذ قرارات تفضل قابلة للصيانة، accessible، responsive، وperformant مع نمو التطبيق.  
 
+
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**

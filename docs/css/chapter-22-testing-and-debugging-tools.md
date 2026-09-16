@@ -215,3 +215,8 @@ Stylelint · Hypothesis Testing
 🎤 جملتك النموذجية في المقابلة
 
 "My CSS debugging process starts with inspection, not guessing — the Grid or Flexbox inspector for layout issues, Computed styles to see what actually won the cascade, and forcing pseudo-class states when debugging hover or focus styles. For a fast first pass, I still reach for the classic outline: 1px solid red trick since it reveals box boundaries instantly without affecting layout. For catching unintended visual changes at scale, I rely on visual regression tools like Percy or Chromatic rather than manual review."   
+
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**

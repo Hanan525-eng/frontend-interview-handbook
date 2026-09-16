@@ -344,3 +344,7 @@ Explicit Grid · Implicit Grid · grid-auto-rows/columns · grid-auto-flow
 🎤 جملتك النموذجية في المقابلة
 
 "CSS Grid is a two-dimensional layout system that handles rows and columns simultaneously, unlike Flexbox's one-dimensional model. Beyond track sizing with fr and minmax(), Grid has its own alignment layer: justify-items/align-items position content within each cell, justify-self/align-self override that for a single item, and justify-content/align-content position the entire track grid within the container when there's leftover space. For responsive layouts, repeat(auto-fit, minmax(250px, 1fr)) eliminates the need for explicit breakpoints entirely."
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**

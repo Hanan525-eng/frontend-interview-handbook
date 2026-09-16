@@ -319,3 +319,7 @@ min-width: auto (min-content size)
 🎤 جملتك النموذجية في المقابلة
 
 "Flexbox is a one-dimensional layout system built around two axes defined by flex-direction. justify-content distributes items along the main axis, align-items aligns them along the cross axis, and align-self overrides that for a single item. A common real-world bug is a flex item refusing to shrink below its content size — that's because min-width defaults to auto, which resolves to the content's min-content size in a flex context; setting min-width: 0 fixes it."
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**

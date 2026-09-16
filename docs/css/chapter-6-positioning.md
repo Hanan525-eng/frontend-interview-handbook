@@ -303,3 +303,7 @@ transform (كـ containing block trigger)
 🎤 جملتك النموذجية في المقابلة
 
 "An element with position: absolute is removed from normal flow and positioned relative to its nearest positioned ancestor — but 'positioned' isn't limited to position; a transform, filter, or will-change on an ancestor also creates a containing block, which is a common source of unexpected fixed behavior. Similarly, a high z-index doesn't guarantee an element renders on top — stacking contexts, created by properties like opacity, transform, or isolation: isolate, can trap it below elements with much lower z-index values."
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**

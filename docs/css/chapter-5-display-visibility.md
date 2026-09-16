@@ -314,3 +314,7 @@ Reflow · Repaint · Normal Flow
 🎤 جملتك النموذجية في المقابلة
 
 "The key difference between display: none and visibility: hidden is their impact on document flow: display: none completely removes the element and triggers a reflow, while visibility: hidden preserves its space and only triggers a repaint. For smooth visual transitions where I still want to control interactivity, I combine opacity: 0 with pointer-events: none rather than relying on visibility alone."
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**

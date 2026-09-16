@@ -354,3 +354,8 @@ Variable Fonts · Typography Scale
 🎤 جملتك النموذجية في المقابلة
 
 "I treat typography as a system, not isolated properties — a consistent type scale tied to design tokens, unitless line-height to avoid compounding issues, and text-align: start/end for RTL-ready alignment. For overflow, I distinguish single-line ellipsis (which needs white-space, overflow, and text-overflow together) from long unbroken words breaking layout, which overflow-wrap: break-word handles separately."   
+
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**

@@ -208,3 +208,8 @@ Bidi (Bidirectional text)
 🎤 جملتك النموذجية في المقابلة
 
 "I build direction-aware UI from the start rather than flipping an LTR design — using logical properties and letting dir="rtl" on the HTML drive the rest. A subtle distinction worth knowing: :dir(rtl) matches the computed direction even when inherited, while [dir="rtl"] only matches an explicit attribute. I also watch for the native scrollbar flipping sides in RTL, which can collide with elements positioned using physical right instead of inset-inline-end."   
+
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**

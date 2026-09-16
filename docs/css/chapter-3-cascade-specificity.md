@@ -268,3 +268,7 @@ inherit · initial · unset · revert
 
 > **"The Cascade resolves conflicting rules through three sequential layers — origin/importance, specificity, then source order — each activating only if the previous one ties. Specificity is calculated in independent categorical columns, so a higher category always wins regardless of how many lower-category selectors are combined. I use `!important` sparingly since overusing it is usually a symptom of deeper specificity problems."**
 >
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**

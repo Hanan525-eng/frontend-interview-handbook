@@ -232,3 +232,8 @@ Semantic HTML
 🎤 جملتك النموذجية في المقابلة
 
 "I treat accessibility as a CSS responsibility, not just HTML — using :focus-visible for keyboard-only indicators, and being careful that opacity: 0 doesn't silently leave an element focusable and interactive. I distinguish prefers-contrast, which respects user color choices at higher contrast, from forced-colors, which overrides colors entirely with system values. For hidden accessible text, I use clip-path: inset(50%) rather than the deprecated clip property or display: none, which would remove it from the accessibility tree entirely." 
+
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**

@@ -239,3 +239,8 @@ Spec support vs Reliable support
 🎤 جملتك النموذجية في المقابلة
 
 "I follow a Progressive Enhancement approach — solid baseline first, modern features layered on via @supports. Beyond property queries, @supports selector(:has(a)) lets me feature-detect selector support specifically, which matters for newer pseudo-classes with uneven browser rollout. And I treat 'supported' data critically — passing a feature query means the browser recognizes the syntax, not that the implementation is bug-free, so I still check known issues for my target browsers."   
+
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**

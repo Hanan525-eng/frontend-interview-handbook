@@ -253,3 +253,7 @@ prefers-reduced-motion
 🎤 جملتك النموذجية في المقابلة
 
 "I animate transform and opacity where possible since browsers can often handle them more efficiently than layout-affecting properties like width or left — though I wouldn't claim that's guaranteed GPU compositing in every case. For accordions or expandable content, I avoid transitioning height: auto directly since the browser can't interpolate to an undefined endpoint — I use grid-template-rows: 0fr to 1fr instead. And I always account for prefers-reduced-motion, reducing motion rather than removing functionality."
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**

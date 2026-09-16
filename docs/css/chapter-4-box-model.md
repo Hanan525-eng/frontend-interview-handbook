@@ -289,3 +289,7 @@ flow-root
 "The CSS Box Model defines how elements are rendered using content, padding, border, and margin. By default, browsers use content-box, where padding and borders increase the element's overall size — using box-sizing: border-box ensures the declared width includes them instead, leading to predictable layouts. Vertical margins between adjacent block elements also collapse to the largest single value, which can be prevented using Flexbox, Grid, or creating a new Block Formatting Context via flow-root."
 
 ملخص التعديلات
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**

@@ -254,3 +254,8 @@ Primitive/Semantic/Component Tokens
 
 "I architect theming with layered design tokens — primitive values feeding semantic tokens that components actually consume, so switching themes never means touching component code. One limitation worth knowing: custom properties can't be referenced inside a media query condition, since they're resolved at a different stage than the query itself. For animating custom properties smoothly, I register them with @property since the browser otherwise treats them as opaque strings."  
 
+
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**

@@ -216,3 +216,8 @@ Browser Support Fallback
 🎤 جملتك النموذجية في المقابلة
 
 "CSS math functions like clamp(), min(), and max() let me build fluid, responsive values without stacking media queries. For color, I use color-mix() to derive hover and active states from a base token instead of hardcoding every variant, and I'm moving toward oklch() for perceptual consistency across a palette — always with a traditional color fallback declared first, since these are newer additions with less universal support." 
+
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**

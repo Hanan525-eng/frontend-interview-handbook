@@ -229,3 +229,8 @@ will-change · DevTools Performance
 🎤 جملتك النموذجية في المقابلة
 
 "I think about CSS performance through the rendering pipeline — Style, Layout, Paint, Composite — and prefer animating transform/opacity since they can often stay within compositing. For long pages, content-visibility: auto defers rendering work for off-screen content, paired with contain-intrinsic-size: auto <size> to avoid layout shift. But I never assume a fixed performance percentage from an article — I measure with DevTools first, identify the actual bottleneck, then optimize."   
+
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**

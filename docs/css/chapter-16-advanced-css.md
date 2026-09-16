@@ -226,3 +226,8 @@ Container Queries · container-type
 🎤 جملتك النموذجية في المقابلة
 
 "Modern CSS gives us native tools that used to require JavaScript or preprocessors — Logical Properties for direction-aware layouts, :has() as a real parent selector, and @layer for explicit cascade control. One nesting gotcha worth knowing: omitting & before a pseudo-class inside nesting creates an unintended descendant selector instead of a compound one. And with @layer, unlayered CSS always wins over any layered rule, regardless of layer order — a counterintuitive but important detail." 
+
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**

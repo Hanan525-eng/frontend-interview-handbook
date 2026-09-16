@@ -218,3 +218,8 @@ Maintainability · Scalability
 🎤 جملتك النموذجية في المقابلة
 
 "CSS architecture choice depends on project scale and team constraints, not a universal best option. BEM works well for traditional CSS, CSS Modules give clean isolation for React apps, and Tailwind offers speed with zero runtime cost. For CSS-in-JS specifically, I distinguish runtime solutions — which require a React Context and force components to be client-side, conflicting with React Server Components — from zero-runtime solutions that resolve to static CSS at build time."   
+
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**

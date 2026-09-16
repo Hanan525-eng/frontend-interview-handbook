@@ -281,3 +281,8 @@ WCAG · Contrast Ratio · Multiple Backgrounds
 🎤 جملتك النموذجية في المقابلة
 
 "I distinguish opacity from alpha transparency carefully — opacity fades the entire element tree including text, while an alpha channel on the background color keeps text fully legible. For images, object-fit gives <img> elements the same cover/contain behavior as CSS backgrounds. I also treat color choices as an accessibility concern, not just aesthetics — checking contrast ratios against WCAG's 4.5:1 minimum for normal text." 
+
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**

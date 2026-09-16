@@ -235,3 +235,8 @@ clamp() · dvh / svh / lvh · @media print
 🎤 جملتك النموذجية في المقابلة
 
 "Responsive design starts with the viewport meta tag — without it, media queries don't behave correctly on real devices. I follow a mobile-first approach using min-width queries, treat breakpoints as content-driven rather than fixed device sizes, and use clamp() for fluid typography to reduce reliance on hardcoded breakpoints. For component-level responsiveness, container queries let a component adapt to its parent's width rather than the full viewport — and for mobile viewport height issues, I use dvh instead of vh to avoid the address-bar jump."
+
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**

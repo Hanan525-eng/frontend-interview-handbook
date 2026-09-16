@@ -367,3 +367,8 @@ DOM Tree · State
 🎤 جملتك النموذجية في المقابلة
 
     "I distinguish between pseudo-classes and pseudo-elements based on what they target: pseudo-classes represent a state of an element, like :hover or :nth-child, while pseudo-elements target a specific part of an element, such as ::before or ::after. Both carry the same specificity weight as classes and elements respectively — a common misconception is treating them as a separate specificity tier, which they are not."
+
+
+---
+
+🔙 **[رجوع للمرجع الشامل (كل الفصول)](CSS-Reference-Handbook.md)**
