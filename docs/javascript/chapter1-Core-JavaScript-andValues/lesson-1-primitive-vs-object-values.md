@@ -381,4 +381,99 @@ spread        → shallow copy فقط
 
 ---
 
+## 🎯 Extra Practice — 3 أفخاخ لازم تتقنيهم
+
+الأمثلة دي بتغطي أكتر 3 نقط بيقع فيها الناس غلط حتى بعد ما يفهموا الأساسيات.
+
+### فخ 1 — Shallow copy مع Array متداخل
+
+```js
+const original = { count: 0, history: [1, 2, 3] };
+const copy = { ...original };
+
+original.history.push(4);
+copy.count = 100;
+
+console.log(original.count, original.history);
+console.log(copy.count, copy.history);
+```
+
+**Predict first ✍️** قبل ما تشوفي الإجابة.
+
+<details>
+<summary>الإجابة</summary>
+
+```
+0, [1, 2, 3, 4]
+100, [1, 2, 3, 4]
+```
+
+`history` array (يعني object)، فهو فضل reference مشترك رغم الـ spread. `count` primitive فاتفصل فعلاً.
+</details>
+
+---
+
+### فخ 2 — دالة بترجع نفس الـ object
+
+```js
+function addTag(item, tag) {
+  item.tags.push(tag);
+  return item;
+}
+
+const product = { name: "Chair", tags: ["wood"] };
+const updatedProduct = addTag(product, "sale");
+
+console.log(product === updatedProduct);
+console.log(product.tags);
+```
+
+**Predict first ✍️**
+
+<details>
+<summary>الإجابة</summary>
+
+```
+true
+["wood", "sale"]
+```
+
+الدالة بتعمل mutation على نفس الـ object وبترجّعه هو نفسه، فمفيش object جديد اتعمل خالص — عشان كده `===` بترجع `true`. ده فخ خطير لو افترضتي إن أي دالة "بترجّع نتيجة" معناها إنها عملت copy.
+</details>
+
+---
+
+### فخ 3 — Nested spread بيحل مستوى واحد بس
+
+```js
+const original = {
+  user: "Hanan",
+  settings: {
+    theme: "dark",
+    notifications: { email: true }
+  }
+};
+
+const updated = { ...original, settings: { ...original.settings } };
+updated.settings.notifications.email = false;
+
+console.log(original.settings.notifications.email);
+console.log(original.settings.theme);
+```
+
+**Predict first ✍️** — فكري: عملنا nested spread لمستوى `settings`، هل ده كافي لحماية `notifications` اللي جوّاه؟
+
+<details>
+<summary>الإجابة</summary>
+
+```
+false   ← اتغيرت! رغم إننا عملنا nested spread
+"dark"  ← دي فضلت زي ما هي
+```
+
+الـ nested spread حمى مستوى `settings` نفسه (عشان كده `theme` ما تأثرش)، لكن `notifications` هو "فولدر جوه فولدر" — مستوى تالت — ومحتاج spread خاص بيه هو كمان. القاعدة: **كل مستوى nesting محتاج spread خاص بيه**، أو استخدمي `structuredClone(original)` لو مفيش functions جوه الـ object.
+</details>
+
+---
+
 **الدرس الجاي في نفس الفصل:** 🟢 Dynamic Typing — ولماذا JavaScript تسمح للمتغير نفسه أن يحمل أنواعًا مختلفة، وعلاقة ذلك بالـ runtime وType Coercion.
